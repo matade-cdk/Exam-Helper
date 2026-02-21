@@ -1,3 +1,10 @@
+/**
+ * Exam Helper Backend API Server
+ * 
+ * Express server providing RAG-powered endpoints for document upload,
+ * summarization, question generation, and Q&A functionality.
+ */
+
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -37,10 +44,12 @@ const upload = multer({ storage });
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 
+// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// Upload document and create vector store
 app.post("/api/upload", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) {
@@ -61,6 +70,7 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
   }
 });
 
+// Generate document summary
 app.post("/api/summary", async (req, res) => {
   try {
     const { docId } = req.body;
@@ -76,6 +86,7 @@ app.post("/api/summary", async (req, res) => {
   }
 });
 
+// Generate important exam questions
 app.post("/api/important-questions", async (req, res) => {
   try {
     const { docId } = req.body;
@@ -93,6 +104,7 @@ app.post("/api/important-questions", async (req, res) => {
   }
 });
 
+// Answer a specific question about the document
 app.post("/api/ask", async (req, res) => {
   try {
     const { docId, question } = req.body;
