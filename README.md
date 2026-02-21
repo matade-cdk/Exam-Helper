@@ -1,18 +1,53 @@
-# Exam Helper
+# Exam Helper 📚
 
-A study web app that lets students upload a document and generate exam-ready summaries, important questions, and grounded answers using RAG with LangChain and OpenRouter.
+AI-powered exam preparation assistant that helps students study more effectively using RAG (Retrieval-Augmented Generation) technology.
+
+## Overview
+
+Exam Helper allows students to upload study materials (PDF, DOCX, TXT) and instantly:
+- ✅ Generate comprehensive summaries
+- ✅ Create important exam questions  
+- ✅ Ask specific questions with source-cited answers
 
 ## Features
 - Landing page with benefits and how-to
-- Document upload (PDF, DOCX, TXT)
-- Important question generation
-- Summary generation
-- Ask questions with sources
+- Document upload (PDF, DOCX, TXT) with drag & drop
+- Important question generation (8-12 questions)
+- Summary generation (6-10 bullet points)
+- Ask questions with sources and page citations
+- Download results as text files
+- Glassmorphism UI design with responsive layout
 
 ## Tech Stack
-- Frontend: React (Create React App)
-- Backend: Node.js + Express
-- RAG: LangChain + OpenRouter
+
+### Backend
+- **Node.js + Express**: RESTful API server
+- **LangChain.js**: RAG orchestration and document processing
+- **OpenAI (via OpenRouter)**: Embeddings (text-embedding-3-small) and chat (gpt-4o-mini)
+- **Memory Vector Store**: In-memory semantic search
+
+### Frontend
+- **React 19**: Modern UI with hooks
+- **CSS3**: Custom glassmorphism design
+- **Drag & Drop**: Intuitive file upload
+
+## Architecture
+
+```
+User uploads document → 
+  Express receives file →
+  Load document (PDFLoader/DocxLoader/TextLoader) →
+  Split into chunks (RecursiveCharacterTextSplitter: 1000 chars, 150 overlap) →
+  Generate embeddings (OpenAIEmbeddings) →
+  Store in MemoryVectorStore →
+  Return docId
+
+User asks question →
+  Retrieve top 6 similar chunks (cosine similarity) →
+  Stuff chunks into prompt context →
+  Generate answer with ChatOpenAI →
+  Return answer with source citations
+```
 
 ## Setup
 
