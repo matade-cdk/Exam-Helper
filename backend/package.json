@@ -5,8 +5,20 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "exam",
+    "study",
+    "ai",
+    "rag",
+    "langchain",
+    "education",
+    "document-processing"
+  ],
+  "author": "Exam Helper Contributors",
+  "license": "MIT",
   "dependencies": {
     "@langchain/core": "^0.3.58",
     "@langchain/community": "^0.3.14",
