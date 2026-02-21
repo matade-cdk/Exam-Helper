@@ -1,3 +1,10 @@
+/**
+ * RAG (Retrieval-Augmented Generation) Engine
+ * 
+ * Handles document loading, chunking, embedding, vector storage,
+ * and AI-powered question answering using LangChain.
+ */
+
 import crypto from "crypto";
 import path from "path";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
@@ -12,6 +19,10 @@ import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 const vectorStores = new Map();
 const docMeta = new Map();
 
+/**
+ * Get OpenRouter API configuration from environment variables
+ * @returns {Object} Configuration object with API key, base URL, and model names
+ */
 function getClientConfig() {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -28,6 +39,10 @@ function getClientConfig() {
   };
 }
 
+/**
+ * Create OpenAI embeddings instance configured for OpenRouter
+ * @returns {OpenAIEmbeddings} Configured embeddings instance
+ */
 function createEmbeddings() {
   const { apiKey, baseURL, embeddingModel } = getClientConfig();
   return new OpenAIEmbeddings({
@@ -37,6 +52,10 @@ function createEmbeddings() {
   });
 }
 
+/**
+ * Create ChatOpenAI instance configured for OpenRouter
+ * @returns {ChatOpenAI} Configured chat model instance
+ */
 function createChatModel() {
   const { apiKey, baseURL, chatModel } = getClientConfig();
   return new ChatOpenAI({
